@@ -20,6 +20,28 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     user-select: none;
   }
+  .hi {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 14px;
+      border: #efefef 3px solid;
+      color: white;
+      text-decoration: none;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #fafafa;
+      transition: all 0.3s;
+      margin-right: 0px;
+    }
+
+    .hi:hover {
+      background: linear-gradient(135deg, #ff1a75, #ff4d4d);
+      box-shadow: 0 0 15px #ff1a75;
+    }
+
+    .hi {
+      margin-top: 10px;
+      font-size: 18px;
+    }
   #game {
     position: relative;
     width: 288px;   /* original Flappy Bird width */
@@ -124,6 +146,7 @@
 </style>
 </head>
 <body>
+  <a href="index.html" class="hi">⬅ Back to Game Arena</a>
   <div id="game">
     <div id="bird"></div>
     <div id="score">0</div>
