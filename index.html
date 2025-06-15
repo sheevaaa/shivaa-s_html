@@ -5,14 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Flappy Bird</title>
 <style>
-  /* Reset & base */
   * {
     box-sizing: border-box;
   }
   body {
     margin: 0;
     background-image: url(New\ Project.png);
-    background-size: cover; /* classic sky blue */
+    background-size: cover;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,14 +43,13 @@
     }
   #game {
     position: relative;
-    width: 288px;   /* original Flappy Bird width */
-    height: 512px;  /* original Flappy Bird height */
+    width: 288px;  
+    height: 512px;  
     background: linear-gradient(to bottom, #70c5ce 0%, #aad7f7 100%);
     border: 4px solid #333;
     border-radius: 8px;
     overflow: hidden;
   }
-  /* Bird */
   #bird {
     position: absolute;
     width: 34px;
@@ -64,7 +62,6 @@
     transform-origin: center;
     transition: transform 0.1s ease;
   }
-  /* Bird wing */
   #bird::before {
     content: '';
     position: absolute;
@@ -81,7 +78,6 @@
     0% { transform: rotate(10deg); }
     100% { transform: rotate(-20deg); }
   }
-  /* Bird beak */
   #bird::after {
     content: '';
     position: absolute;
@@ -93,7 +89,6 @@
     clip-path: polygon(0 0, 100% 50%, 0 100%);
     border-radius: 2px;
   }
-  /* Pipes - silver style */
   .pipe {
     position: absolute;
     width: 52px;
@@ -106,7 +101,6 @@
   .pipe.bottom {
     border-radius: 0 0 40px 40px;
   }
-  /* Score with background so no overlap */
   #score {
     position: absolute;
     top: 10px;
@@ -125,7 +119,6 @@
     pointer-events: none;
     z-index: 1000;
   }
-  /* Restart button */
   #restartBtn {
     display: none;
     position: absolute;
@@ -141,7 +134,7 @@
     cursor: pointer;
     box-shadow: 0 0 10px #1c6b1c;
     font-weight: 700;
-    z-index: 2000; /* FIXED: high z-index to be on top */
+    z-index: 2000; 
   }
 </style>
 </head>
@@ -159,7 +152,7 @@
   const scoreDisplay = document.getElementById('score');
   const restartBtn = document.getElementById('restartBtn');
 
-  const groundHeight = 0; // no ground now
+  const groundHeight = 0;
 
   const gameWidth = 288;
   const gameHeight = 512;
@@ -183,7 +176,7 @@
     const pipeBottom = document.createElement('div');
     pipeBottom.classList.add('pipe', 'bottom');
 
-    // Random gap position between 50 and gameHeight - gap - ground - 50
+    
     const gapTop = Math.floor(Math.random() * (gameHeight - pipeGap - groundHeight - 100)) + 50;
 
     pipeTop.style.height = gapTop + 'px';
@@ -208,7 +201,7 @@
     gameOver = false;
     restartBtn.style.display = 'none';
 
-    // Remove all pipes
+ 
     pipes.forEach(p => {
       game.removeChild(p.top);
       game.removeChild(p.bottom);
@@ -224,7 +217,7 @@
   function update() {
     if (gameOver) return;
 
-    // Bird physics
+    
     birdVelocity += gravity;
     birdY += birdVelocity;
 
@@ -238,14 +231,14 @@
 
     bird.style.top = birdY + 'px';
 
-    // Move pipes
+  
     for (let i = pipes.length -1; i >= 0; i--) {
       const p = pipes[i];
       p.x -= pipeSpeed;
       p.top.style.left = p.x + 'px';
       p.bottom.style.left = p.x + 'px';
 
-      // Collision detection
+ 
       if (
         (80 + bird.offsetWidth > p.x && 80 < p.x + pipeWidth) && // horizontal overlap
         (birdY < parseInt(p.top.style.height) || birdY + bird.offsetHeight > gameHeight - groundHeight - parseInt(p.bottom.style.height))
@@ -253,14 +246,14 @@
         endGame();
       }
 
-      // Score update
+     
       if (p.x + pipeWidth < 80 && !p.passed) {
         score++;
         scoreDisplay.textContent = score;
         p.passed = true;
       }
 
-      // Remove pipes off-screen
+ 
       if (p.x + pipeWidth < 0) {
         game.removeChild(p.top);
         game.removeChild(p.bottom);
@@ -268,7 +261,7 @@
       }
     }
 
-    // Add new pipe if needed
+  
     if (pipes.length === 0 || pipes[pipes.length -1].x < gameWidth - 180) {
       createPipe();
     }
